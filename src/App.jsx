@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,41 +10,46 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+import CheckoutForm from './components/CheckoutForm';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <div className="min-h-screen bg-black text-white">
         <Navbar />
-        <main className="relative z-10">
-          <Routes>
-            <Route path="/" element={
-              <div className="relative">
-                <Hero />
-                <About />
-                <Services />
-                <Testimonials />
-                <Pricing />
-                <Contact />
-                <Footer />
-              </div>
-            } />
-            <Route path="/privacy-policy" element={
-              <div className="relative">
-                <PrivacyPolicy />
-                <Footer />
-              </div>
-            } />
-            <Route path="/terms-of-service" element={
-              <div className="relative">
-                <TermsOfService />
-                <Footer />
-              </div>
-            } />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <About />
+              <Services />
+              <Testimonials />
+              <Pricing />
+              <Contact />
+              <Footer />
+            </>
+          } />
+          <Route path="/checkout" element={
+            <>
+              <CheckoutForm />
+              <Footer />
+            </>
+          } />
+          <Route path="/privacy-policy" element={
+            <>
+              <PrivacyPolicy />
+              <Footer />
+            </>
+          } />
+          <Route path="/terms-of-service" element={
+            <>
+              <TermsOfService />
+              <Footer /> service_xdsrxrr
+            </>
+          } />
+        </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

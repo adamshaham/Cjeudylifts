@@ -49,12 +49,12 @@ export default function Pricing() {
           </div>
 
           <a 
-            href="https://www.skool.com/chris-jeudy-lifts-5944/about?ref=01cad9a7e3fd492b8d2e3055a92dea1d" 
-            target="_blank" 
-            rel="noopener noreferrer"
+            href="/checkout.html" 
             className="block w-full"
           >
-            <button className="w-full py-4 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition-all duration-300 text-lg">
+            <button 
+              className="w-full py-4 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition-all duration-300 text-lg"
+            >
               Start Your 90-Day Journey
             </button>
           </a>
