@@ -14,7 +14,10 @@
             Start Your <span class="text-blue-500">Transformation</span>
           </h1>
           
-          <form id="checkoutForm" class="space-y-6">
+          <form id="checkoutForm" action="https://formsubmit.co/cjeudylifts@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://buy.stripe.com/8wMcPofD8gNC9vq3cc">
+            <input type="hidden" name="_template" value="table">
             <div>
               <label for="name" class="block text-sm font-medium text-white mb-2">
                 Full Name
@@ -264,98 +267,9 @@
 
     <script>
       document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Gather all form data
-        const formData = {
-          name: document.getElementById('name').value,
-          email: document.getElementById('email').value,
-          phone: document.getElementById('phone').value,
-          age: document.getElementById('age').value,
-          gender: document.getElementById('gender').value,
-          height: document.getElementById('heightFeet').value + "'" + document.getElementById('heightInches').value + '"',
-          weight: document.getElementById('weight').value,
-          occupation: document.getElementById('occupation').value,
-          workoutExperience: document.getElementById('workoutExperience').value,
-          workoutFrequency: document.getElementById('workoutFrequency').value,
-          allergies: document.getElementById('allergies').value || 'None',
-          medicalIssues: document.getElementById('medicalIssues').value || 'None',
-          fitnessGoals: document.getElementById('fitnessGoals').value
-        };
-
-        // First, send the form data via FormSubmit
-        const formSubmission = new Promise((resolve) => {
-          // Create email body
-          const emailBody = `
-          <h2>New Client Information</h2>
-            
-          <h3>Personal Information:</h3>
-          <p><strong>Name:</strong> ${formData.name}</p>
-          <p><strong>Email:</strong> ${formData.email}</p>
-          <p><strong>Phone:</strong> ${formData.phone}</p>
-          <p><strong>Age:</strong> ${formData.age}</p>
-          <p><strong>Gender:</strong> ${formData.gender}</p>
-          <p><strong>Height:</strong> ${formData.height}</p>
-          <p><strong>Weight:</strong> ${formData.weight} lbs</p>
-          <p><strong>Occupation:</strong> ${formData.occupation}</p>
-            
-          <h3>Fitness Background:</h3>
-          <p><strong>Workout Experience:</strong> ${formData.workoutExperience}</p>
-          <p><strong>Current Workout Frequency:</strong> ${formData.workoutFrequency}</p>
-            
-          <h3>Health Information:</h3>
-          <p><strong>Allergies:</strong> ${formData.allergies}</p>
-          <p><strong>Medical Issues/Conditions:</strong> ${formData.medicalIssues}</p>
-            
-          <h3>Goals:</h3>
-          <p><strong>Fitness Goals:</strong> ${formData.fitnessGoals}</p>
-          `;
-
-          // Use FormSubmit.co to email the data
-          fetch('https://formsubmit.co/ajax/cjeudylifts@gmail.com', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-              _subject: `New Fitness Consultation Request from ${formData.name}`,
-              _template: 'table',
-              name: formData.name,
-              email: formData.email,
-              phone: formData.phone,
-              age: formData.age,
-              gender: formData.gender,
-              height: formData.height,
-              weight: formData.weight + ' lbs',
-              occupation: formData.occupation,
-              workout_experience: formData.workoutExperience,
-              workout_frequency: formData.workoutFrequency,
-              allergies: formData.allergies,
-              medical_issues: formData.medicalIssues,
-              fitness_goals: formData.fitnessGoals,
-              _captcha: 'false'
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Form submitted successfully:', data);
-            resolve();
-          })
-          .catch(error => {
-            console.error('Error submitting form:', error);
-            resolve(); // Continue to payment even if form submission fails
-          });
-        });
-
-        // After form submission, redirect to Stripe
-        formSubmission.then(() => {
-          // Stripe checkout URL
-          const stripeCheckoutUrl = 'https://buy.stripe.com/8wMcPofD8gNC9vq3cc';
-          
-          // Instantly redirect without showing any message
-          window.location.href = stripeCheckoutUrl;
-        });
+        // Let the form submit naturally to FormSubmit.co
+        // The _next parameter will handle the redirect to Stripe
+        return true;
       });
     </script>
     
