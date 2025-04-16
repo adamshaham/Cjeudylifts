@@ -22,6 +22,20 @@ const faqs = [
 export default function Contact() {
   const [openFaq, setOpenFaq] = useState(null);
 
+  const handlePricingClick = () => {
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      const offset = 100;
+      const elementPosition = pricingSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <section className="py-12 px-6 bg-black">
       <div className="max-w-6xl mx-auto">
@@ -52,16 +66,12 @@ export default function Contact() {
         <div className="text-center">
           <h2 className="text-4xl font-bold text-white mb-4">YOU WANT TO <span className="text-blue-500">TRAIN</span> WITH ME?</h2>
           <p className="text-gray-400 mb-6">Feel free to contact me if you want to train with me!</p>
-          <a 
-            href="https://www.skool.com/chris-jeudy-lifts-5944/about?ref=01cad9a7e3fd492b8d2e3055a92dea1d" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="block w-full"
+          <button 
+            onClick={handlePricingClick}
+            className="w-full py-4 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition-all duration-300 text-lg"
           >
-            <button className="w-full py-4 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition-all duration-300 text-lg">
-              Start Your 90-Day Journey
-            </button>
-          </a>
+            Start Your 90-Day Journey
+          </button>
         </div>
       </div>
     </section>
