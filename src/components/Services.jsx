@@ -4,17 +4,6 @@ const services = [
   {
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-    title: "Personal Training",
-    description: "Custom workouts tailored to your goals with one-on-one attention and support.",
-    features: ["Personalized workout plans", "Form correction", "Progress tracking"],
-    details: "Get personalized attention and expert guidance to reach your fitness goals faster. Our one-on-one sessions focus on proper form, technique, and progressive overload."
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
       </svg>
     ),
@@ -30,9 +19,9 @@ const services = [
       </svg>
     ),
     title: "Online Coaching",
-    description: "Remote training programs with regular check-ins and progress tracking.",
+    description: "Remote training program with regular check-ins and progress tracking.",
     features: ["24/7 support", "Video analysis", "Weekly check-ins"],
-    details: "Get expert coaching from anywhere in the world. Our online program includes video analysis, regular check-ins, and continuous support to keep you on track."
+    details: "Our online program includes a PERSONALIZED workout plan,video analysis, regular check-ins, and continuous support to keep you on track."
   }
 ];
 
@@ -46,11 +35,11 @@ export default function Services() {
             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 sm:w-24 h-1 bg-yellow-500"></div>
           </h2>
           <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
-            Comprehensive fitness solutions designed to help you achieve your goals
+          You're not lazy — you're lost in a world of confusing fitness advice. This is designed to cut through the noise, giving you a clear plan to transform your body and mind — no guesswork, no gimmicks.
           </p>
         </div>
         
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
           {services.map((service, index) => (
             <div
               key={index}

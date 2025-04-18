@@ -30,12 +30,12 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80 rounded-2xl"></div>
             <div className="absolute inset-0 flex flex-col justify-center p-6 z-10">
               <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-                ELITE<br />
-                <span className="text-blue-500">FITNESS</span><br />
-                COACHING
+                TRANSFORM<br />
+                <span className="text-blue-500">YOUR BODY</span><br />
+                WITH CHRIS
               </h1>
               <p className="text-base sm:text-lg text-gray-200 mb-6">
-                Personalized training programs designed to help you reach peak performance and achieve lasting results. Experience the difference of expert guidance.
+                Stop guessing and start growing. I'll guide you through a personalized fitness journey that actually works.
               </p>
               <button 
                 onClick={handleClick}
@@ -50,12 +50,12 @@ export default function Hero() {
           <div className="hidden md:grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
             <div className="text-left">
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-4 md:mb-6">
-                ELITE<br />
-                <span className="text-blue-500">FITNESS</span><br />
-                COACHING
+                TRANSFORM<br />
+                <span className="text-blue-500">YOUR BODY</span><br />
+                WITH CHRIS
               </h1>
               <p className="text-base sm:text-lg md:text-xl max-w-xl text-gray-400 mb-6 md:mb-8">
-                Personalized training programs designed to help you reach peak performance and achieve lasting results. Experience the difference of expert guidance.
+                Stop guessing and start growing. I'll guide you through a personalized fitness journey that actually works.
               </p>
               <button 
                 onClick={handleClick}

@@ -1,14 +1,11 @@
 import React from 'react';
 
 const features = [
-  "Exclusive Skool Community Access",
   "Personalized Workout Plans",
-  "1-on-1 Training Sessions",
   "Nutrition Guidance & Meal Plans",
   "Progress Tracking",
   "24/7 Support & Motivation",
   "Weekly Check-ins",
-  "Form Correction",
   "Supplement Advice"
 ];
 
@@ -26,12 +23,12 @@ export default function Pricing() {
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-blue-500">Complete Fitness Package</h3>
             <div className="flex flex-col items-center justify-center gap-2 mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-4xl sm:text-5xl font-bold text-yellow-500">$60</span>
+                <span className="text-4xl sm:text-5xl font-bold text-yellow-500">$30</span>
                 <span className="text-gray-400">/month</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-lg text-gray-500 line-through">$150</span>
-                <span className="px-2 py-1 bg-red-500/20 text-red-500 text-sm font-semibold rounded-full">60% OFF</span>
+                <span className="px-3 py-1.5 bg-red-500/20 text-red-500 text-sm font-bold rounded-full">80% OFF</span>
               </div>
             </div>
             <p className="text-gray-400">Limited time offer - Everything you need to reach your fitness goals</p>
