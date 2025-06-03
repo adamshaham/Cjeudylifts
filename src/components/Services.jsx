@@ -26,6 +26,13 @@ const services = [
 ];
 
 export default function Services() {
+  const scrollToPricing = () => {
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="py-20 px-6 bg-black text-white">
       <div className="max-w-6xl mx-auto">
@@ -78,6 +85,25 @@ export default function Services() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-12">
+          <button
+            onClick={scrollToPricing}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-yellow-500 text-black font-bold rounded-lg 
+                     hover:bg-yellow-400 transition-all duration-300 text-lg group"
+          >
+            View Pricing Plans
+            <svg 
+              className="w-5 h-5 transform group-hover:translate-y-0.5 transition-transform" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>

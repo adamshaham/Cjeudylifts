@@ -1,41 +1,75 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-export default function CheckoutForm() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    fitnessGoals: '',
-    currentFitnessLevel: '',
-    medicalConditions: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+export default function CheckoutForm({ onSubmit, planType, onBack }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your submission! We will contact you soon.');
-    navigate('/');
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const formData = new FormData(e.target);
+      
+      // Add subject line based on plan type
+      formData.append('_subject', planType === 'basic' ? 'Workout Plan Request' : 'Full Transformation Request');
+      
+      // Submit to FormSubmit
+      const response = await fetch('https://formsubmit.co/cjeudylifts@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed: ${response.statusText}`);
+      }
+
+      // If form submission is successful, call onSubmit to handle payment redirect
+      if (onSubmit) {
+        onSubmit(formData);
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setError('There was an error submitting the form. Please try again or contact us directly at cjeudylifts@gmail.com');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <section className="min-h-screen bg-black border-4 border-red-500">
+    <section className="min-h-screen bg-black">
       <div className="container mx-auto py-16 px-4 sm:px-6">
         <div className="max-w-2xl mx-auto bg-zinc-900 p-8 sm:p-10 rounded-2xl border border-zinc-800 shadow-lg">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8">
             Start Your <span className="text-blue-500">Transformation</span>
           </h1>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          {error && (
+            <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-500">
+              {error}
+            </div>
+          )}
+
+          <form 
+            onSubmit={handleSubmit} 
+            className="space-y-6"
+            action="https://formsubmit.co/cjeudylifts@gmail.com"
+            method="POST"
+            target="_blank"
+          >
+            {/* Honeypot to prevent spam */}
+            <input type="text" name="_honey" style={{ display: 'none' }} />
+            
+            {/* Disable Captcha */}
+            <input type="hidden" name="_captcha" value="false" />
+
+            {/* Auto reply configuration */}
+            <input type="hidden" name="_autoresponse" value="Thank you for your submission! We'll review your information and get back to you soon." />
+
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
                 Full Name
@@ -44,8 +78,6 @@ export default function CheckoutForm() {
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                 placeholder="Enter your full name"
@@ -60,8 +92,6 @@ export default function CheckoutForm() {
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                 placeholder="Enter your email address"
@@ -76,12 +106,97 @@ export default function CheckoutForm() {
                 type="tel"
                 id="phone"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                 placeholder="Enter your phone number"
               />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="age" className="block text-sm font-medium text-white mb-2">
+                  Age
+                </label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  required
+                  min="16"
+                  max="100"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                  placeholder="Enter your age"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="weight" className="block text-sm font-medium text-white mb-2">
+                  Weight (lbs)
+                </label>
+                <input
+                  type="number"
+                  id="weight"
+                  name="weight"
+                  required
+                  min="50"
+                  max="500"
+                  step="1"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                  placeholder="Enter your weight in pounds"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-white mb-2">
+                  Height
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="heightFeet" className="block text-xs text-gray-400 mb-1">
+                      Feet
+                    </label>
+                    <input
+                      type="number"
+                      id="heightFeet"
+                      name="heightFeet"
+                      required
+                      min="4"
+                      max="8"
+                      className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                      placeholder="Feet"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="heightInches" className="block text-xs text-gray-400 mb-1">
+                      Inches
+                    </label>
+                    <input
+                      type="number"
+                      id="heightInches"
+                      name="heightInches"
+                      required
+                      min="0"
+                      max="11"
+                      className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                      placeholder="Inches"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="occupation" className="block text-sm font-medium text-white mb-2">
+                  Occupation
+                </label>
+                <input
+                  type="text"
+                  id="occupation"
+                  name="occupation"
+                  required
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                  placeholder="Enter your occupation"
+                />
+              </div>
             </div>
 
             <div>
@@ -91,8 +206,6 @@ export default function CheckoutForm() {
               <textarea
                 id="fitnessGoals"
                 name="fitnessGoals"
-                value={formData.fitnessGoals}
-                onChange={handleChange}
                 required
                 rows={3}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
@@ -107,8 +220,6 @@ export default function CheckoutForm() {
               <select
                 id="currentFitnessLevel"
                 name="currentFitnessLevel"
-                value={formData.currentFitnessLevel}
-                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
               >
@@ -126,20 +237,43 @@ export default function CheckoutForm() {
               <textarea
                 id="medicalConditions"
                 name="medicalConditions"
-                value={formData.medicalConditions}
-                onChange={handleChange}
                 rows={3}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                 placeholder="List any medical conditions or injuries (optional)"
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-4 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition-all duration-300 text-lg mt-8"
-            >
-              Submit Information
-            </button>
+            <div className="flex gap-4 mt-8">
+              <button
+                type="button"
+                onClick={onBack}
+                className="flex-1 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-all duration-300 text-lg flex items-center justify-center"
+              >
+                <svg 
+                  className="w-5 h-5 mr-2" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18" 
+                  />
+                </svg>
+                Back to Plans
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`flex-1 py-4 bg-yellow-500 text-black font-bold rounded-lg transition-all duration-300 text-lg ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-400'
+                }`}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Information'}
+              </button>
+            </div>
           </form>
         </div>
       </div>
